@@ -4,6 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import * as serviceWorker from './serviceWorker';
 
+import './AppStyles.css';
 import App from './App';
 
 ReactDOM.render(

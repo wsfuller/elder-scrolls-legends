@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 
 import AppNavigation from './components/AppNavigation';
 import CardFeed from './components/CardFeed';
+import BackToTop from './components/BackToTop';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Container maxWidth="xl">
         <CardFeed />
       </Container>
+      <BackToTop />
     </Fragment>
   );
 }
