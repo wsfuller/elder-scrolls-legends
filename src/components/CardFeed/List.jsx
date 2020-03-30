@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   cardImage: {
     display: 'block',
     width: '100%',
-    height: 'auto',
+    height: '100%',
     maxHeight: 663,
   },
 }));
