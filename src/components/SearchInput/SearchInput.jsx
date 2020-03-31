@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SearchInput({ getSearchTerm, resetSearch }) {
+function SearchInput({ getSearchTerm, clearSearchTerm }) {
   const classes = useStyles();
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState(false);
@@ -40,7 +40,7 @@ function SearchInput({ getSearchTerm, resetSearch }) {
 
   const handleReset = () => {
     setSearchTerm('');
-    resetSearch();
+    clearSearchTerm();
   };
 
   return (
@@ -84,7 +84,7 @@ function SearchInput({ getSearchTerm, resetSearch }) {
 
 SearchInput.propTypes = {
   getSearchTerm: PropTypes.func.isRequired,
-  resetSearch: PropTypes.func.isRequired,
+  clearSearchTerm: PropTypes.func.isRequired,
 };
 
 export default SearchInput;

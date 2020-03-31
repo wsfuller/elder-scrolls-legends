@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import Container from '@material-ui/core/Container';
 
@@ -9,11 +9,6 @@ import SearchInput from './components/SearchInput';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [resetCardFeed, setResetCardFeed] = useState(false);
-
-  useEffect(() => {
-    setSearchTerm(searchTerm);
-  }, [searchTerm]);
 
   const getSearchTerm = (retrivedSearchTerm) => {
     if (retrivedSearchTerm) {
@@ -21,17 +16,15 @@ function App() {
     }
   };
 
-  const resetSearch = () => {
-    console.log('reseting all the things');
-    // setSearchTerm('');
-    // setResetSearch(true);
+  const clearSearchTerm = () => {
+    setSearchTerm('');
   };
 
   return (
     <Fragment>
       <AppNavigation />
       <Container maxWidth="xl">
-        <SearchInput getSearchTerm={getSearchTerm} resetSearch={resetSearch} />
+        <SearchInput getSearchTerm={getSearchTerm} clearSearchTerm={clearSearchTerm} />
         <CardFeed searchTerm={searchTerm} />
       </Container>
       <BackToTop />
