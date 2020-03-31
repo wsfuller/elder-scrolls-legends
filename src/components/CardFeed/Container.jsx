@@ -52,11 +52,8 @@ function CardFeedContainer({ searchTerm }) {
   }, [needCards, searchTerm]);
 
   useEffect(() => {
-    if (pageNumber > totalPageCount) {
-      setReachedCardsLimit(true);
-    } else {
-      setReachedCardsLimit(false);
-    }
+    const resultsLimit = pageNumber > totalPageCount;
+    setReachedCardsLimit(resultsLimit);
   }, [pageNumber]);
 
   useEffect(() => {
