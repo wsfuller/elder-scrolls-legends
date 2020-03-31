@@ -55,8 +55,8 @@ function NavigationLinks({ openDialog }) {
         <Typography variant="h6">Elder Scrolls Legends</Typography>
       </div>
       <Divider />
-      <List component="nav" onClick={() => openDialog()}>
-        <ListItem button>
+      <List component="nav">
+        <ListItem button onClick={() => openDialog()}>
           <ListItemIcon>
             <InfoIcon />
           </ListItemIcon>
