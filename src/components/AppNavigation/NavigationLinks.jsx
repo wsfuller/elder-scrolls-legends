@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
@@ -9,6 +10,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InfoIcon from '@material-ui/icons/Info';
 import GitHubIcon from '@material-ui/icons/GitHub';
+import StorageIcon from '@material-ui/icons/Storage';
+import BrushIcon from '@material-ui/icons/Brush';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -27,22 +30,23 @@ const useStyles = makeStyles((theme) => ({
 
 const linkList = [
   {
-    text: 'About Project',
-    href: '',
-    icon: <InfoIcon />,
-  },
-  {
     text: 'GitHub Repo',
     href: 'https://github.com/wsfuller/elder-scrolls-legends',
     icon: <GitHubIcon />,
   },
+  {
+    text: 'ESL API Docs',
+    href: 'https://docs.elderscrollslegends.io/',
+    icon: <StorageIcon />,
+  },
+  {
+    text: 'WSF Portfolio',
+    href: 'https://wsfuller.dev',
+    icon: <BrushIcon />,
+  },
 ];
 
-// function ListItemLink(props) {
-//   return <ListItem button component="a" {...props} />;
-// }
-
-function NavigationLinks() {
+function NavigationLinks({ openDialog }) {
   const classes = useStyles();
 
   return (
@@ -51,9 +55,15 @@ function NavigationLinks() {
         <Typography variant="h6">Elder Scrolls Legends</Typography>
       </div>
       <Divider />
-      <List component="nav" aria-label="main mailbox folders">
+      <List component="nav">
+        <ListItem button onClick={() => openDialog()}>
+          <ListItemIcon>
+            <InfoIcon />
+          </ListItemIcon>
+          <ListItemText primary="About Project" />
+        </ListItem>
         {linkList.map((item) => (
-          <ListItem key={item.text} button>
+          <ListItem key={item.text} button component="a" href={item.href}>
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.text} />
           </ListItem>
@@ -62,5 +72,9 @@ function NavigationLinks() {
     </div>
   );
 }
+
+NavigationLinks.propTypes = {
+  openDialog: PropTypes.func.isRequired,
+};
 
 export default NavigationLinks;

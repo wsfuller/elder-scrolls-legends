@@ -7,6 +7,12 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 import NavigationLinks from './NavigationLinks';
 
@@ -25,6 +31,15 @@ const useStyles = makeStyles((theme) => ({
 function AppNavigation() {
   const classes = useStyles();
   const [navDrawer, toggleNavDrawer] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleOpenDialog = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
 
   return (
     <Fragment>
@@ -45,8 +60,29 @@ function AppNavigation() {
         </Toolbar>
       </AppBar>
       <Drawer anchor="left" open={navDrawer} onClose={() => toggleNavDrawer(false)}>
-        <NavigationLinks />
+        <NavigationLinks openDialog={handleOpenDialog} />
       </Drawer>
+      <Dialog onClose={handleCloseDialog} aria-labelledby="simple-dialog-title" open={isDialogOpen}>
+        <DialogTitle>About the Project</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            The goal of this project is to build a visually appealing, modern responsive front end
+            application. The application connects into the Elder Scrolls Legends API for data
+            retrieval. Users are then able to infinitely scroll through the card data and fuzzy
+            search by card names.
+            <br />
+            <br />
+            This application was built with React using Create React App. State management and data
+            retrieval with React Hooks. The user interface is built with the React Material UI
+            framework and deployed on Netlify.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary" autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Fragment>
   );
 }
