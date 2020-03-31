@@ -29,7 +29,7 @@ function AppNavigation() {
   return (
     <Fragment>
       <AppBar position="static">
-        <Toolbar variant="dense">
+        <Toolbar>
           <IconButton
             edge="start"
             className={classes.menuButton}

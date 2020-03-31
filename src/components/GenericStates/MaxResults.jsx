@@ -6,11 +6,11 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   maxResults: {
-    display: 'flex',
+    display: 'block',
     maxWidth: 500,
     margin: `${theme.spacing(8)}px auto`,
-    textAlign: 'center',
     fontStyle: 'italic',
+    textAlign: 'center',
   },
 }));
 
