@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 function AppNavigation() {
   const classes = useStyles();
-  const [navDrawer, toggleNavDrawer] = useState(false);
+  const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleOpenDialog = () => {
@@ -47,7 +47,7 @@ function AppNavigation() {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
-            onClick={() => toggleNavDrawer(true)}
+            onClick={() => setIsNavDrawerOpen(true)}
           >
             <MenuIcon />
           </IconButton>
@@ -56,7 +56,7 @@ function AppNavigation() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer anchor="left" open={navDrawer} onClose={() => toggleNavDrawer(false)}>
+      <Drawer anchor="left" open={isNavDrawerOpen} onClose={() => setIsNavDrawerOpen(false)}>
         <NavigationLinks openDialog={handleOpenDialog} />
       </Drawer>
       <Dialog onClose={handleCloseDialog} aria-labelledby="simple-dialog-title" open={isDialogOpen}>
