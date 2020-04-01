@@ -1,11 +1,15 @@
 import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import ReactGA from 'react-ga';
 
 import * as serviceWorker from './serviceWorker';
 
 import './AppStyles.css';
 import App from './App';
+
+ReactGA.initialize('UA-33461307-11');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 ReactDOM.render(
   <Fragment>
