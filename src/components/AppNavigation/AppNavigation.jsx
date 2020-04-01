@@ -17,9 +17,6 @@ import Button from '@material-ui/core/Button';
 import NavigationLinks from './NavigationLinks';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
