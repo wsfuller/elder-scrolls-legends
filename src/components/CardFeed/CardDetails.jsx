@@ -18,10 +18,7 @@ function CardDetails({ cardDetails, isCardDetailsOpen, closeCardDetails }) {
     <Dialog fullWidth maxWidth="md" open={isCardDetailsOpen} onClose={() => closeCardDetails()}>
       <DialogTitle>{name}</DialogTitle>
       <DialogContent>
-        <List
-          // className={classes.detailList}
-          subheader={<ListSubheader>Card Details</ListSubheader>}
-        >
+        <List subheader={<ListSubheader>Card Details</ListSubheader>}>
           <ListItem dense>
             <ListItemText primary="Rarity:" secondary={rarity} />
           </ListItem>
