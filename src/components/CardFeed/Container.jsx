@@ -7,6 +7,7 @@ import debounce from 'lodash/debounce';
 
 import { Error, Loading, NoResults, MaxResults } from '../GenericStates';
 import CardFeedList from './List';
+import CardDetails from './CardDetails';
 
 function CardFeedContainer({ searchTerm }) {
   const [cards, setCards] = useState([]);
@@ -16,6 +17,8 @@ function CardFeedContainer({ searchTerm }) {
   const [reachedCardsLimit, setReachedCardsLimit] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPageCount, setTotalPageCount] = useState(1);
+  const [isCardDetailsOpen, setIsCardDetailsOpen] = useState(false);
+  const [selectedCardDetails, setSelectedCardDetails] = useState({});
 
   useEffect(() => {
     const getCards = async () => {
@@ -71,6 +74,16 @@ function CardFeedContainer({ searchTerm }) {
     }
   }, 300);
 
+  const handleOpenCardDetails = (cardDetails) => {
+    setSelectedCardDetails(cardDetails);
+    setIsCardDetailsOpen(true);
+  };
+
+  const handleCloseCardDetails = () => {
+    setSelectedCardDetails({});
+    setIsCardDetailsOpen(false);
+  };
+
   if (error) {
     return <Error message="We're sorry but something went wrong trying to fetch your cards" />;
   }
@@ -79,9 +92,16 @@ function CardFeedContainer({ searchTerm }) {
   }
   return (
     <Fragment>
-      <CardFeedList cards={cards} />
+      <CardFeedList cards={cards} openCardDetails={handleOpenCardDetails} />
       {reachedCardsLimit && <MaxResults message="There are no more cards to show" />}
       {isLoading && <Loading />}
+      {isCardDetailsOpen && (
+        <CardDetails
+          cardDetails={selectedCardDetails}
+          isCardDetailsOpen={isCardDetailsOpen}
+          closeCardDetails={handleCloseCardDetails}
+        />
+      )}
     </Fragment>
   );
 }
