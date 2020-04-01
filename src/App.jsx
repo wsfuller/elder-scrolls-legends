@@ -10,9 +10,9 @@ import SearchInput from './components/SearchInput';
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const getSearchTerm = (retrivedSearchTerm) => {
-    if (retrivedSearchTerm) {
-      setSearchTerm(retrivedSearchTerm);
+  const getSearchTerm = (retrievedSearchTerm) => {
+    if (retrievedSearchTerm) {
+      setSearchTerm(retrievedSearchTerm);
     }
   };
 
