@@ -6,6 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
+import Image from '../Image';
+
 const useStyles = makeStyles((theme) => ({
   feedWrapper: {
     width: '100%',
@@ -40,7 +42,7 @@ function CardFeedList({ cards, openCardDetails }) {
         {cards.map((card) => (
           <Grid key={card.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
             <Paper className={classes.card} elevation={3}>
-              <img className={classes.cardImage} src={card.imageUrl} alt={card.name} />
+              <Image source={card.imageUrl} alt={card.name} />
               <Button
                 className={classes.cardButton}
                 variant="contained"
