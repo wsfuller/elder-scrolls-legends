@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 import Image from '../Image';
+import FavoriteStar from '../FavoriteStar';
 
 const useStyles = makeStyles((theme) => ({
   feedWrapper: {
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    position: 'relative',
     width: '100%',
     height: '100%',
     padding: theme.spacing(3),
@@ -31,9 +33,19 @@ const useStyles = makeStyles((theme) => ({
   cardButton: {
     marginTop: theme.spacing(3),
   },
+  favoriteStar: {
+    position: 'absolute',
+    top: theme.spacing(3),
+    right: theme.spacing(3),
+    fontSize: 24,
+    zIndex: 10,
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
 }));
 
-function CardFeedList({ cards, openCardDetails }) {
+function CardFeedList({ cards, openCardDetails, favoriteCardToggle }) {
   const classes = useStyles();
 
   return (
@@ -42,6 +54,12 @@ function CardFeedList({ cards, openCardDetails }) {
         {cards.map((card) => (
           <Grid key={card.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
             <Paper className={classes.card} elevation={3}>
+              <FavoriteStar
+                className={classes.favoriteStar}
+                isFavorited={card.favorited}
+                clickEvent={favoriteCardToggle}
+                itemToFavorite={card.id}
+              />
               <Image source={card.imageUrl} alt={card.name} />
               <Button
                 className={classes.cardButton}
@@ -66,6 +84,7 @@ CardFeedList.propTypes = {
     })
   ).isRequired,
   openCardDetails: PropTypes.func.isRequired,
+  favoriteCardToggle: PropTypes.func.isRequired,
 };
 
 export default CardFeedList;

@@ -10,6 +10,9 @@ import CardFeedList from './List';
 import CardDetails from './CardDetails';
 
 function CardFeedContainer({ searchTerm }) {
+  const localStoreName = 'eslFavCards';
+  let localFavCards = localStorage.getItem(localStoreName);
+
   const [cards, setCards] = useState([]);
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -36,6 +39,15 @@ function CardFeedContainer({ searchTerm }) {
         const response = await axios.get(BASE_URL, {
           params: requestParams,
         });
+
+        response.data.cards.forEach((card) => {
+          const cardRef = card;
+          cardRef.favorited = false;
+        });
+
+        if (localFavCards) {
+          const favCardsArray = localStorage.getItem(localStoreName).split(',');
+        }
 
         setTotalPageCount(Math.ceil(response.data._totalCount / MAX_RESULTS_TO_FETCH));
         setCards([...cards, ...response.data.cards]);
@@ -84,6 +96,26 @@ function CardFeedContainer({ searchTerm }) {
     setIsCardDetailsOpen(false);
   };
 
+  const favoriteCardToggle = (cardId) => {
+    const cardToUpdate = cards.find((card) => card.id === cardId);
+
+    if (localFavCards) {
+      const favCardsArray = localFavCards.split(',');
+      if (favCardsArray.includes(cardId)) {
+        const filterCardsArray = favCardsArray.filter((card) => card !== cardId);
+
+        localStorage.setItem(localStoreName, filterCardsArray.toString());
+      } else {
+        localStorage.setItem(localStoreName, (localFavCards += `,${cardId}`));
+      }
+    } else {
+      localStorage.setItem(localStoreName, cardId);
+    }
+
+    cardToUpdate.favorited = !cardToUpdate.favorited;
+    setCards([...cards]);
+  };
+
   if (error) {
     return <Error message="We're sorry but something went wrong trying to fetch your cards" />;
   }
@@ -92,7 +124,11 @@ function CardFeedContainer({ searchTerm }) {
   }
   return (
     <Fragment>
-      <CardFeedList cards={cards} openCardDetails={handleOpenCardDetails} />
+      <CardFeedList
+        cards={cards}
+        openCardDetails={handleOpenCardDetails}
+        favoriteCardToggle={favoriteCardToggle}
+      />
       {reachedCardsLimit && <MaxResults message="There are no more cards to show" />}
       {isLoading && <Loading />}
       {isCardDetailsOpen && (
