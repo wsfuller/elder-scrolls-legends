@@ -40,17 +40,29 @@ function CardFeedContainer({ searchTerm }) {
           params: requestParams,
         });
 
-        response.data.cards.forEach((card) => {
+        const responseCards = response.data.cards;
+
+        responseCards.forEach((card) => {
           const cardRef = card;
           cardRef.favorited = false;
         });
 
         if (localFavCards) {
           const favCardsArray = localStorage.getItem(localStoreName).split(',');
+
+          favCardsArray.forEach((favId) =>
+            responseCards.find((card) => {
+              const cardRef = card;
+              if (card.id === favId) {
+                cardRef.favorited = true;
+              }
+              return null;
+            })
+          );
         }
 
         setTotalPageCount(Math.ceil(response.data._totalCount / MAX_RESULTS_TO_FETCH));
-        setCards([...cards, ...response.data.cards]);
+        setCards([...cards, ...responseCards]);
         setPageNumber(pageNumber + 1);
       } catch (err) {
         // eslint-disable-next-line no-console
