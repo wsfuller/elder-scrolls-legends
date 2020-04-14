@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
   },
   favoriteStar: {
     position: 'absolute',
-    top: theme.spacing(3),
-    right: theme.spacing(3),
-    fontSize: 24,
+    top: theme.spacing(1),
+    right: theme.spacing(1),
+    color: theme.palette.warning.main,
     zIndex: 10,
     '&:hover': {
       cursor: 'pointer',

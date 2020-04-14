@@ -2,12 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 
-function FavoriteStar({ className, isFavorited, clickEvent, itemToFavorite }) {
-  if (isFavorited) {
-    return <FaStar className={className} onClick={() => clickEvent(itemToFavorite)} />;
-  }
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
-  return <FaRegStar className={className} onClick={() => clickEvent(itemToFavorite)} />;
+function FavoriteStar({ className, isFavorited, clickEvent, itemToFavorite }) {
+  return (
+    <Tooltip title={isFavorited ? 'Unfavorite' : 'Favorite'}>
+      <IconButton
+        size="large"
+        className={className}
+        onClick={() => clickEvent(itemToFavorite)}
+        aria-label="favorite"
+      >
+        {isFavorited ? <FaStar /> : <FaRegStar />}
+      </IconButton>
+    </Tooltip>
+  );
 }
 
 FavoriteStar.propTypes = {
