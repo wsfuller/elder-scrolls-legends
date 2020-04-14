@@ -50,15 +50,13 @@ function CardFeedContainer({ searchTerm }) {
         if (localFavCards) {
           const favCardsArray = localStorage.getItem(localStoreName).split(',');
 
-          favCardsArray.forEach((favId) =>
-            responseCards.find((card) => {
-              const cardRef = card;
-              if (card.id === favId) {
-                cardRef.favorited = true;
-              }
-              return null;
-            })
-          );
+          responseCards.forEach((card) => {
+            const cardRef = card;
+            if (favCardsArray.includes(card.id)) {
+              cardRef.favorited = true;
+            }
+            return cardRef;
+          });
         }
 
         setTotalPageCount(Math.ceil(response.data._totalCount / MAX_RESULTS_TO_FETCH));
