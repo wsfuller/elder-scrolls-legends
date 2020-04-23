@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '1.5rem 1rem',
+    padding: '0.5rem 1rem',
   },
 }));
 
@@ -52,7 +52,9 @@ function NavigationLinks({ openDialog }) {
   return (
     <div className={classes.drawer}>
       <div className={classes.title}>
-        <Typography variant="h6">Elder Scrolls Legends</Typography>
+        <Link href="/" variant="h6" className={classes.title} color="inherit" underline="none">
+          Elder Scrolls Legends
+        </Link>
       </div>
       <Divider />
       <List component="nav">
