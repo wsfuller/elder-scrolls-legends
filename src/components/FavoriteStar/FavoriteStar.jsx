@@ -9,7 +9,7 @@ function FavoriteStar({ className, isFavorited, clickEvent, itemToFavorite }) {
   return (
     <Tooltip title={isFavorited ? 'Unfavorite' : 'Favorite'}>
       <IconButton
-        size="large"
+        size="medium"
         className={className}
         onClick={() => clickEvent(itemToFavorite)}
         aria-label="favorite"
