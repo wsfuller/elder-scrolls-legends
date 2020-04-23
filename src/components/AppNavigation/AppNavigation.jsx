@@ -1,9 +1,11 @@
 import React, { Fragment, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
@@ -12,9 +14,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
 
 import NavigationLinks from './NavigationLinks';
+import UserActions from './UserActions';
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AppNavigation() {
+function AppNavigation({ user, isUserAuthenticated }) {
   const classes = useStyles();
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -54,6 +56,7 @@ function AppNavigation() {
           <Typography variant="h6" className={classes.title}>
             Elder Scrolls Legends
           </Typography>
+          <UserActions user={user} isUserAuthenticated={isUserAuthenticated} />
         </Toolbar>
       </AppBar>
       <Drawer anchor="left" open={isNavDrawerOpen} onClose={() => setIsNavDrawerOpen(false)}>
@@ -83,5 +86,12 @@ function AppNavigation() {
     </Fragment>
   );
 }
+
+AppNavigation.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string,
+  }).isRequired,
+  isUserAuthenticated: PropTypes.bool.isRequired,
+};
 
 export default AppNavigation;

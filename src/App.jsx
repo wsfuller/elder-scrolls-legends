@@ -1,32 +1,25 @@
 import React, { Fragment, useState } from 'react';
 
-import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 
+import Routes from './Pages/Routes';
 import AppNavigation from './components/AppNavigation';
-import CardFeed from './components/CardFeed';
 import BackToTop from './components/BackToTop';
-import SearchInput from './components/SearchInput';
+
+const INTIAL_USER = {
+  username: '',
+  id: '',
+};
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const getSearchTerm = (retrievedSearchTerm) => {
-    if (retrievedSearchTerm) {
-      setSearchTerm(retrievedSearchTerm);
-    }
-  };
-
-  const clearSearchTerm = () => {
-    setSearchTerm('');
-  };
+  const [user, setUser] = useState(INTIAL_USER);
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
 
   return (
     <Fragment>
-      <AppNavigation />
-      <Container maxWidth="xl">
-        <SearchInput getSearchTerm={getSearchTerm} clearSearchTerm={clearSearchTerm} />
-        <CardFeed searchTerm={searchTerm} />
-      </Container>
+      <Button onClick={() => setIsUserAuthenticated(!isUserAuthenticated)}>Login User</Button>
+      <AppNavigation user={user} isUserAuthenticated={isUserAuthenticated} />
+      <Routes />
       <BackToTop />
     </Fragment>
   );

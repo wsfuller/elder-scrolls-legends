@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import ReactGA from 'react-ga';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import * as serviceWorker from './serviceWorker';
 
@@ -12,10 +13,10 @@ ReactGA.initialize('UA-33461307-11');
 ReactGA.pageview(window.location.pathname + window.location.search);
 
 ReactDOM.render(
-  <Fragment>
+  <Router>
     <CssBaseline />
     <App />
-  </Fragment>,
+  </Router>,
   document.getElementById('root')
 );
 
