@@ -5,21 +5,22 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
+import { MdLock } from 'react-icons/md';
 
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(8),
   },
-  image: {
-    display: 'block',
-    width: '100%',
-    height: 'auto',
-    borderRadius: '50%',
+  icon: {
+    color: theme.palette.primary.dark,
+    fontSize: 64,
   },
-  imageContainer: {
-    width: '100%',
-    maxWidth: 150,
-    height: 'auto',
+  iconContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 100,
+    height: 100,
     marginBottom: theme.spacing(4),
     padding: theme.spacing(1),
     border: `1px solid ${theme.palette.grey[300]}`,
@@ -39,8 +40,8 @@ function Login() {
   return (
     <Container maxWidth="xl" classes={{ root: classes.container }}>
       <Grid container direction="column" justify="center" alignItems="center">
-        <div className={classes.imageContainer}>
-          <img className={classes.image} src="http://placehold.it/150x150" alt="placeholder" />
+        <div className={classes.iconContainer}>
+          <MdLock className={classes.icon} />
         </div>
         <form className={classes.loginForm}>
           <TextField
