@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import Container from '@material-ui/core/Container';
 
 import CardFeed from '../components/CardFeed';
 import SearchInput from '../components/SearchInput';
+import BackToTop from '../components/BackToTop';
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,10 +20,13 @@ function Home() {
   };
 
   return (
-    <Container maxWidth="xl">
-      <SearchInput getSearchTerm={getSearchTerm} clearSearchTerm={clearSearchTerm} />
-      <CardFeed searchTerm={searchTerm} />
-    </Container>
+    <Fragment>
+      <Container maxWidth="xl">
+        <SearchInput getSearchTerm={getSearchTerm} clearSearchTerm={clearSearchTerm} />
+        <CardFeed searchTerm={searchTerm} />
+      </Container>
+      <BackToTop />
+    </Fragment>
   );
 }
 

@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 
 import Routes from './Pages/Routes';
 import AppNavigation from './components/AppNavigation';
-import BackToTop from './components/BackToTop';
 
 const INTIAL_USER = {
   username: '',
@@ -20,7 +19,6 @@ function App() {
       <Button onClick={() => setIsUserAuthenticated(!isUserAuthenticated)}>Login User</Button>
       <AppNavigation user={user} isUserAuthenticated={isUserAuthenticated} />
       <Routes />
-      <BackToTop />
     </Fragment>
   );
 }
