@@ -37,3 +37,10 @@ export const redirectUser = (ctx, location) => {
   //   Router.push(location);
   // }
 };
+
+export const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isEmailValid = emailRegex.test(email);
+
+  return isEmailValid;
+};
