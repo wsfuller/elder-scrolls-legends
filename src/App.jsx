@@ -18,7 +18,7 @@ function App() {
     <Fragment>
       <Button onClick={() => setIsUserAuthenticated(!isUserAuthenticated)}>Login User</Button>
       <AppNavigation user={user} isUserAuthenticated={isUserAuthenticated} />
-      <Routes />
+      <Routes isUserAuthenticated={isUserAuthenticated} />
     </Fragment>
   );
 }
