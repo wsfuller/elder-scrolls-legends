@@ -73,7 +73,7 @@ function Login() {
   const history = useHistory();
   const [user, setUser] = useState(INITIAL_USER);
   const [loading, setLoading] = useState(false);
-  const [disabled, setDisabled] = useState(true);
+  const [formDisabled, setFormDisabled] = useState(true);
   const [formError, setFormError] = useState(false);
   const [redirectUser, setRedirectUser] = useState(false);
   const [feedback, setFeedback] = useState(INITIAL_FEEDBACK);
@@ -82,15 +82,14 @@ function Login() {
   useEffect(() => {
     setFormError(false);
     const enteredUserCredentials = Object.values(user).every((elem) => Boolean(elem));
-    return enteredUserCredentials ? setDisabled(false) : setDisabled(true);
+    return enteredUserCredentials ? setFormDisabled(false) : setFormDisabled(true);
   }, [user]);
 
   useEffect(() => {
-    if (redirectUser) {
+    if (redirectUser && !formDisabled && !loading) {
       history.push('/');
     }
-    // eslint-disable react-hooks/exhaustive-deps
-  }, [redirectUser]);
+  }, [redirectUser, loading, formDisabled, history]);
 
   const handleFeedback = (type, message) => {
     setFeedback({
@@ -114,7 +113,7 @@ function Login() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setDisabled(true);
+    setFormDisabled(true);
     const validEmail = validateEmail(user.email);
     if (!validEmail) {
       setFormError(true);
@@ -129,6 +128,7 @@ function Login() {
         const payload = { ...user };
         const response = await axios.post(url, payload);
         const redirect = await handleLogin(response.data);
+
         if (redirect) {
           setRedirectUser(true);
         }
@@ -139,8 +139,8 @@ function Login() {
           handleFeedback('error', error.response.data);
         }
       } finally {
-        setDisabled(false);
         setLoading(false);
+        setFormDisabled(false);
       }
     }
   };
@@ -179,6 +179,7 @@ function Login() {
               variant="outlined"
               value={user.password}
               onChange={handleFormChange}
+              autoComplete="on"
               error={formError}
               helperText={formError && formHelperText.password}
             />
@@ -186,7 +187,7 @@ function Login() {
               variant="contained"
               color="primary"
               type="submit"
-              disabled={disabled || formError}
+              disabled={formDisabled || formError}
             >
               Login
             </Button>
