@@ -1,7 +1,5 @@
 import React, { Fragment, useState } from 'react';
 
-import Button from '@material-ui/core/Button';
-
 import Routes from './Pages/Routes';
 import AppNavigation from './components/AppNavigation';
 
@@ -16,7 +14,6 @@ function App() {
 
   return (
     <Fragment>
-      <Button onClick={() => setIsUserAuthenticated(!isUserAuthenticated)}>Login User</Button>
       <AppNavigation user={user} isUserAuthenticated={isUserAuthenticated} />
       <Routes isUserAuthenticated={isUserAuthenticated} />
     </Fragment>
