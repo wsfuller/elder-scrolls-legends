@@ -17,7 +17,6 @@ ReactDOM.render(
   <UserProvider>
     <Router>
       <CssBaseline />
-
       <App />
     </Router>
   </UserProvider>,
