@@ -14,12 +14,13 @@ ReactGA.initialize('UA-33461307-11');
 ReactGA.pageview(window.location.pathname + window.location.search);
 
 ReactDOM.render(
-  <Router>
-    <CssBaseline />
-    <UserProvider>
+  <UserProvider>
+    <Router>
+      <CssBaseline />
+
       <App />
-    </UserProvider>
-  </Router>,
+    </Router>
+  </UserProvider>,
   document.getElementById('root')
 );
 
