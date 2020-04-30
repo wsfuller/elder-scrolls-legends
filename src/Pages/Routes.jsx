@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 // import PropTypes from 'prop-types';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import ProtectedRoute from '../components/CustomRoutes';
+import ProtectedRoute from '../components/ProtectedRoute';
 import Home from './Home';
 import Login from './Login';
 import CreateUser from './CreateUser';
