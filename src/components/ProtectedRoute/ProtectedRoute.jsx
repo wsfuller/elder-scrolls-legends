@@ -23,6 +23,7 @@ function ProtectedRoute({ children, isUserAuthenticated }) {
 }
 
 ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired,
   isUserAuthenticated: PropTypes.bool.isRequired,
 };
 
