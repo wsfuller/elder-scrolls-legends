@@ -1,6 +1,5 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
 import { MdLock } from 'react-icons/md';
 
 import Link from '@material-ui/core/Link';
@@ -71,9 +70,9 @@ const INITIAL_FEEDBACK = {
 
 function Login() {
   const classes = useStyles();
-  const history = useHistory();
   // eslint-disable-next-line no-unused-vars
   const [user, setUser] = useContext(UserContext);
+  const [tokenDetails, setTokenDetails] = useState({});
   const [loading, setLoading] = useState(false);
   const [formError, setFormError] = useState(false);
   const [formDisabled, setFormDisabled] = useState(true);
@@ -90,9 +89,9 @@ function Login() {
 
   useEffect(() => {
     if (redirectUser && !formDisabled && !loading) {
-      history.push('/');
+      setUser(tokenDetails);
     }
-  }, [redirectUser, loading, formDisabled, history]);
+  }, [redirectUser, loading, formDisabled]);
 
   const handleFeedback = (type, message) => {
     setFeedback({
@@ -133,8 +132,8 @@ function Login() {
         const userLogin = await handleLogin(response.data);
 
         if (userLogin) {
-          setUser({ ...userLogin.user, isAuthed: true });
           setRedirectUser(true);
+          setTokenDetails({ ...userLogin.user, isAuthed: true });
         }
       } catch (error) {
         if (!error.response) {
