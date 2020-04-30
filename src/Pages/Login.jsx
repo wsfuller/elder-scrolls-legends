@@ -76,7 +76,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [formError, setFormError] = useState(false);
   const [formDisabled, setFormDisabled] = useState(true);
-  const [redirectUser, setRedirectUser] = useState(false);
+  const [loginSuccessful, setLoginSuccessful] = useState(false);
   const [feedback, setFeedback] = useState(INITIAL_FEEDBACK);
   const [formHelperText, setFormHelperText] = useState(INITIAL_HELPER_TEXT);
   const [userCredentials, setUserCredentials] = useState(INITIAL_USER_CREDENTIALS);
@@ -88,10 +88,10 @@ function Login() {
   }, [userCredentials]);
 
   useEffect(() => {
-    if (redirectUser && !formDisabled && !loading) {
+    if (loginSuccessful && !formDisabled && !loading) {
       setUser(tokenDetails);
     }
-  }, [redirectUser, loading, formDisabled]);
+  }, [loginSuccessful, loading, formDisabled]);
 
   const handleFeedback = (type, message) => {
     setFeedback({
@@ -132,7 +132,7 @@ function Login() {
         const userLogin = await handleLogin(response.data);
 
         if (userLogin) {
-          setRedirectUser(true);
+          setLoginSuccessful(true);
           setTokenDetails({ ...userLogin.user, isAuthed: true });
         }
       } catch (error) {
