@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import { Redirect, Route } from 'react-router-dom';
 
-function ProtectedRoute({ children, isUserAuthenticated }) {
+function ProtectedRoute({ children, isUserAuthed }) {
   return (
     <Route
       render={({ location }) =>
-        isUserAuthenticated ? (
+        isUserAuthed ? (
           children
         ) : (
           <Redirect
@@ -24,7 +24,7 @@ function ProtectedRoute({ children, isUserAuthenticated }) {
 
 ProtectedRoute.propTypes = {
   children: PropTypes.node.isRequired,
-  isUserAuthenticated: PropTypes.bool.isRequired,
+  isUserAuthed: PropTypes.bool.isRequired,
 };
 
 export default ProtectedRoute;

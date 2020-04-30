@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { getUserCredentials } from '../utils/auth';
 
+import { Loading } from '../components/GenericStates';
+
 export const UserContext = createContext();
 
 const INTIAL_USER = {
@@ -35,7 +37,7 @@ export function UserProvider({ children }) {
   }, []);
 
   if (checkingAuth) {
-    return null;
+    return <Loading />;
   }
 
   return <UserContext.Provider value={[user, setUser]}>{children}</UserContext.Provider>;

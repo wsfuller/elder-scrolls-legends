@@ -89,12 +89,10 @@ function Login() {
   }, [userCredentials]);
 
   useEffect(() => {
-    if (user.isAuthed) {
-      history.push('/create');
-    } else if (redirectUser && !formDisabled && !loading) {
+    if (redirectUser && !formDisabled && !loading) {
       history.push('/');
     }
-  }, [redirectUser, loading, formDisabled, history, user]);
+  }, [redirectUser, loading, formDisabled, history]);
 
   const handleFeedback = (type, message) => {
     setFeedback({

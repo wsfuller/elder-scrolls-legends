@@ -17,7 +17,13 @@ function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/login" exact component={Login} />
+      <Route
+        path="/login"
+        exact
+        component={() =>
+          user.isAuthed ? <Redirect to={{ pathname: `/user/${user.id}` }} /> : <Login />
+        }
+      />
       <Route
         path="/create"
         exact
