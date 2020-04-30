@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { MdLock } from 'react-icons/md';
@@ -14,6 +14,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Feedback from '../components/Feedback';
+import { UserContext } from '../Context/UserContext';
 
 import { handleLogin, validateEmail } from '../utils/auth';
 
@@ -52,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const INITIAL_USER = {
+const INITIAL_USER_CREDENTIALS = {
   email: '',
   password: '',
 };
@@ -71,25 +72,29 @@ const INITIAL_FEEDBACK = {
 function Login() {
   const classes = useStyles();
   const history = useHistory();
-  const [user, setUser] = useState(INITIAL_USER);
+  // eslint-disable-next-line no-unused-vars
+  const [user, setUser] = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const [formDisabled, setFormDisabled] = useState(true);
   const [formError, setFormError] = useState(false);
+  const [formDisabled, setFormDisabled] = useState(true);
   const [redirectUser, setRedirectUser] = useState(false);
   const [feedback, setFeedback] = useState(INITIAL_FEEDBACK);
   const [formHelperText, setFormHelperText] = useState(INITIAL_HELPER_TEXT);
+  const [userCredentials, setUserCredentials] = useState(INITIAL_USER_CREDENTIALS);
 
   useEffect(() => {
     setFormError(false);
-    const enteredUserCredentials = Object.values(user).every((elem) => Boolean(elem));
+    const enteredUserCredentials = Object.values(userCredentials).every((elem) => Boolean(elem));
     return enteredUserCredentials ? setFormDisabled(false) : setFormDisabled(true);
-  }, [user]);
+  }, [userCredentials]);
 
   useEffect(() => {
-    if (redirectUser && !formDisabled && !loading) {
+    if (user.isAuthed) {
+      history.push('/create');
+    } else if (redirectUser && !formDisabled && !loading) {
       history.push('/');
     }
-  }, [redirectUser, loading, formDisabled, history]);
+  }, [redirectUser, loading, formDisabled, history, user]);
 
   const handleFeedback = (type, message) => {
     setFeedback({
@@ -108,13 +113,13 @@ function Login() {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setUser((prevState) => ({ ...prevState, [name]: value }));
+    setUserCredentials((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setFormDisabled(true);
-    const validEmail = validateEmail(user.email);
+    const validEmail = validateEmail(userCredentials.email);
     if (!validEmail) {
       setFormError(true);
       setFormHelperText({
@@ -125,11 +130,12 @@ function Login() {
       try {
         setLoading(true);
         const url = `${process.env.REACT_APP_ESL_API_SERVICE}/api/v1/users/login`;
-        const payload = { ...user };
+        const payload = { ...userCredentials };
         const response = await axios.post(url, payload);
-        const redirect = await handleLogin(response.data);
+        const userLogin = await handleLogin(response.data);
 
-        if (redirect) {
+        if (userLogin) {
+          setUser({ ...userLogin.user, isAuthed: true });
           setRedirectUser(true);
         }
       } catch (error) {
@@ -164,7 +170,7 @@ function Login() {
               label="Email"
               type="email"
               variant="outlined"
-              value={user.email}
+              value={userCredentials.email}
               onChange={handleFormChange}
               error={formError}
               helperText={formError && formHelperText.email}
@@ -177,7 +183,7 @@ function Login() {
               label="Password"
               type="password"
               variant="outlined"
-              value={user.password}
+              value={userCredentials.password}
               onChange={handleFormChange}
               autoComplete="on"
               error={formError}

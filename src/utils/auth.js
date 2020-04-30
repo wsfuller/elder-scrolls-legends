@@ -1,29 +1,43 @@
 const tokenName = 'esl_user_token';
 
-export const handleAuthentication = () => {
-  console.log('handle authentication');
-};
+function parseJwt(token) {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch (error) {
+    return null;
+  }
+}
 
-export const handleLogin = (token) => {
+export function getUserCredentials() {
+  const userToken = localStorage.getItem(tokenName);
+
+  if (userToken) {
+    return parseJwt(userToken);
+  }
+  return null;
+}
+
+export function handleLogin(token) {
   return new Promise((resolve, reject) => {
     localStorage.setItem(tokenName, token);
+    const userToken = localStorage.getItem(tokenName);
 
-    if (localStorage.getItem(tokenName)) {
-      resolve(true);
+    if (userToken) {
+      resolve(parseJwt(userToken));
     } else {
-      reject(Error('error setting cookie'));
+      reject(Error('error setting token'));
     }
   });
-};
+}
 
-export const handleLogout = () => {
+export function handleLogout() {
   localStorage.setItem('logout', Date.now());
   localStorage.removeItem(tokenName);
-};
+}
 
-export const validateEmail = (email) => {
+export function validateEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isEmailValid = emailRegex.test(email);
 
   return isEmailValid;
-};
+}

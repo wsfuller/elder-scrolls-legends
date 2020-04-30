@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Create() {
+function CreateUser() {
   return (
     <div>
       <h1>Create new user</h1>
@@ -8,4 +8,4 @@ function Create() {
   );
 }
 
-export default Create;
+export default CreateUser;

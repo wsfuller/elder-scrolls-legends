@@ -8,6 +8,7 @@ import * as serviceWorker from './serviceWorker';
 
 import './AppStyles.css';
 import App from './App';
+import { UserProvider } from './Context/UserContext';
 
 ReactGA.initialize('UA-33461307-11');
 ReactGA.pageview(window.location.pathname + window.location.search);
@@ -15,7 +16,9 @@ ReactGA.pageview(window.location.pathname + window.location.search);
 ReactDOM.render(
   <Router>
     <CssBaseline />
-    <App />
+    <UserProvider>
+      <App />
+    </UserProvider>
   </Router>,
   document.getElementById('root')
 );

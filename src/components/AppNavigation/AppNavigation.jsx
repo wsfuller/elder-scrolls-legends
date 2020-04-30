@@ -1,5 +1,4 @@
-import React, { Fragment, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, useContext, useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -17,6 +16,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import NavigationLinks from './NavigationLinks';
 import UserActions from './UserActions';
+import { UserContext } from '../../Context/UserContext';
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -27,10 +27,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AppNavigation({ user, isUserAuthenticated }) {
+function AppNavigation() {
   const classes = useStyles();
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [user] = useContext(UserContext);
+
+  console.log('user in AppNavigation: ', user);
 
   const handleOpenDialog = () => {
     setIsDialogOpen(true);
@@ -56,7 +59,7 @@ function AppNavigation({ user, isUserAuthenticated }) {
           <Link href="/" variant="h6" className={classes.title} color="inherit" underline="none">
             Elder Scrolls Legends
           </Link>
-          <UserActions user={user} isUserAuthenticated={isUserAuthenticated} />
+          <UserActions user={user} />
         </Toolbar>
       </AppBar>
       <Drawer anchor="left" open={isNavDrawerOpen} onClose={() => setIsNavDrawerOpen(false)}>
@@ -86,12 +89,5 @@ function AppNavigation({ user, isUserAuthenticated }) {
     </Fragment>
   );
 }
-
-AppNavigation.propTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string,
-  }).isRequired,
-  isUserAuthenticated: PropTypes.bool.isRequired,
-};
 
 export default AppNavigation;
